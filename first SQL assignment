@@ -1,0 +1,30 @@
+CREATE DATABASE test_2_2_25;
+
+USE test_2_2_25;
+
+CREATE TABLE Users (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	first_name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
+	email VARCHAR(100) UNIQUE NOT NULL,
+	password_hash VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Courses (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    course_name VARCHAR(100) NOT NULL,
+    start_date DATE NOT NULL,
+    max_students INT NOT NULL
+);
+
+CREATE TABLE Students (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    age INT CHECK (age >= 18) NOT NULL,
+    phone_number VARCHAR(20) NOT NULL,
+    course_id INT NOT NULL,
+    registered_by INT NULL,
+    FOREIGN KEY (course_id) REFERENCES Courses(id) ON DELETE CASCADE,
+    FOREIGN KEY (registered_by) REFERENCES Users(id) ON DELETE SET NULL
+);
